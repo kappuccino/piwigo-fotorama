@@ -1,5 +1,7 @@
-{combine_css path="plugins/Fotorama/fotorama/fotorama.css"}
-{combine_script id='fotorama' require='jquery' load='header' path='plugins/Fotorama/fotorama/fotorama.js'}
+{combine_css path="plugins/Fotorama/fotorama/out/fotorama.css"}
+{*
+{combine_script id='fotorama' require='jquery' load='header' path='plugins/Fotorama/fotorama/out/fotorama.js'}
+*}
 
 {if $Fotorama.close_button}
 {combine_css path="plugins/Fotorama/template/close_button.css"}
@@ -8,15 +10,33 @@
 {combine_css path="plugins/Fotorama/template/info_button.css"}
 {/if}
 
-<div class="fotorama" data-startindex="{$current_rank}" data-ratio="16/9" data-auto="false"
-  data-width="100%" data-maxheight="100%" data-minheight="200" data-height="{$item_height}"
-  data-shadows="{if $Fotorama.shadows}true{else}false{/if}" data-nav="{$Fotorama.nav}" data-fit="{$Fotorama.fit}"
-  data-allowfullscreen="{$Fotorama.allowfullscreen}" data-autoplay="{if $Fotorama.autoplay}{$Fotorama.period}{else}false{/if}"
-  data-transition="{$Fotorama.transition}" data-stopautoplayontouch="{if $Fotorama.stopautoplayontouch}true{else}false{/if}"
-  data-loop="{if $Fotorama.loop}true{else}false{/if}" data-captions="false" data-thumbheight="{$Fotorama.thumbheight}"
-  data-thumbwidth="{$Fotorama.thumbheight}"{if $Fotorama.clicktransition_crossfade} data-clicktransition="crossfade"{/if}
-  data-keyboard="true">
-</div>
+<div class="fotorama"
+    data-startindex="{$current_rank}"
+    data-ratio="16/9"
+    data-auto="false"
+	data-width="100%"
+	data-maxheight="100%"
+	data-minheight="200"
+	data-height="{$item_height}"
+	data-shadows="{if $Fotorama.shadows}true{else}false{/if}"
+	data-nav="{$Fotorama.nav}"
+    data-fit="{$Fotorama.fit}"
+	data-allowfullscreen="{$Fotorama.allowfullscreen}"
+	data-autoplay="{if $Fotorama.autoplay}{$Fotorama.period}{else}false{/if}"
+	data-transition="{$Fotorama.transition}"
+	data-stopautoplayontouch="{if $Fotorama.stopautoplayontouch}true{else}false{/if}"
+	data-loop="{if $Fotorama.loop}true{else}false{/if}"
+    data-captions="false"
+	data-thumbheight="{$Fotorama.thumbheight}"
+	data-thumbwidth="{$Fotorama.thumbheight}"
+
+	{if $Fotorama.clicktransition_crossfade}
+	data-clicktransition="crossfade"
+	{/if}
+
+	data-keyboard='{literal}{"space": true, "home": true, "end": true, "up": false, "down": false}{/literal}'>
+
+></div>
 
 {if isset($U_SLIDESHOW_STOP)}
 <a href="{$U_SLIDESHOW_STOP}" class="fotorama__close-icon"></a>
@@ -50,6 +70,7 @@
 
   var fullscreen = false;
   jQuery().ready(function() {
+
     jQuery('.fotorama')
         // Listen to the events
         .on('fotorama:showend',
@@ -177,4 +198,16 @@ url: "{$thumbnail.url}"
     }
   });
   {/if}
+
+
+	document.onkeydown = function(e){
+		if (e.keyCode == 80 || e.keyCode == 38) { // "p" or up arrow
+			console.log('UP');
+		}
+
+		if (e.keyCode == 77 || e.keyCode == 40) { // "m" or down arrow
+			console.log('DOWN');
+		}
+	}
+
 {/footer_script}
